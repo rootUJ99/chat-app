@@ -1,0 +1,9 @@
+.auth-form {
+    display: grid;
+    gap: 1rem;
+    justify-content: center;
+    grid-template-columns: auto;
+  }
+  .or-divider {
+    justify-self: center;
+  }

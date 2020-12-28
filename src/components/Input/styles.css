@@ -1,0 +1,8 @@
+.input {
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.3rem;
+  border: none;
+  background-color: var(--field);
+  color: var(--font-color);
+  outline: none;
+}

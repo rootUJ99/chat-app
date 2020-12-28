@@ -1,0 +1,12 @@
+.card {
+  padding: 1rem;
+  background-color: var(--primary);
+  border-radius: 0.5rem;
+  max-width: 25rem;
+}
+.card:hover {
+  cursor: pointer;
+}
+h4 {
+  font-weight: 600;
+}
