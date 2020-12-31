@@ -1,0 +1,6 @@
+.message {
+  padding: 0.3rem;
+  border-radius: 40%;
+  color: white;
+  scroll-snap-align: start;
+}

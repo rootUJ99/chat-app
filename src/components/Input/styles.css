@@ -3,6 +3,6 @@
   border-radius: 0.3rem;
   border: none;
   background-color: var(--field);
-  color: var(--font-color);
+  color: #000000;
   outline: none;
 }

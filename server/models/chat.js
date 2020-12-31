@@ -7,6 +7,7 @@ const chatSchema = new Schema({
   chat: [messageSchema],
 });
 const messageSchema = new Schema({
+  sender: String,
   messaage: String,
   time: Date
 }); 

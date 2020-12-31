@@ -11,3 +11,21 @@ export const useLocalStorage = (key, initialValue) => {
   return [localStore, setValue];
 }
 
+// export const useSocket = (event, param) => {
+//   const socket = null;
+//   const [data, setData ] = useState('');
+//   if (typeof(param)=== 'function') {
+//     useEffect(() => {
+//       socket?.on(event, param);
+//       return () => {
+//         socket?.off(event);
+//       }
+//     }, [socket]);
+//   }
+//   if (typeof(param)=== 'String') {
+//     socket?.emit(param);    
+//   }
+//   return {
+//     data
+//   }
+// }

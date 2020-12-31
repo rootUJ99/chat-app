@@ -8,10 +8,18 @@ const App = () => {
   const [userData] = useLocalStorage('token');
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-  const socketIO = io();
-  setSocket(socketIO);
-  return () => socketIO.close();
-}, [])
+  if (userData?.token) {
+    const socketIO = io('',{
+      multiplex: false,
+      transports: ['polling', 'xhr-polling', 'jsonp-polling']
+    });
+    setSocket(socketIO);
+  }
+  return () => { 
+    console.log('closing socket connection');
+    socket?.close();
+   }
+}, [setSocket])
   return (
     <div>
       {userData?.token ? <Chat socket={socket}/> : <Auth/>}
