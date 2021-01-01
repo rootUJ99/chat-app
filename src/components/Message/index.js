@@ -1,10 +1,10 @@
 import React from 'react'
 import './styles.css';
-const Message = ({background='#fcfc', message}) => {
+const Message = ({background, message, justifySelf}) => {
   return (
     <div style={{
-      background: background,
-      justifySelf: 'end'
+      background,
+      justifySelf
       }} className="message">
       {message}
     </div>

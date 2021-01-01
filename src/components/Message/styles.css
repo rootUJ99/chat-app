@@ -1,6 +1,7 @@
 .message {
-  padding: 0.3rem;
-  border-radius: 40%;
+  padding: 0.5rem;
+  align-self: flex-start;
+  border-radius: 1rem;
   color: white;
   scroll-snap-align: start;
 }

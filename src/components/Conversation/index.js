@@ -3,26 +3,26 @@ import Button from "../Button";
 import Input from "../Input";
 import Message from "../Message";
 import "./styles.css";
-const messageList = new Array(100).fill().map((_, index) => `${index}`);
 
-const Conversation = ({contact, socket}) => {
+const Conversation = ({contact, socket,conversation, setConversation, userDetails }) => {
   
   const [message, setMessage] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState([])
+  const [isTyping, setIsTyping] = useState(null);
 
   useEffect(()=> {
     socket?.on('recived-message', (msg)=>{
       console.log(msg);
-      setSubmitMessage([...submitMessage, msg]);
+      setConversation([...conversation, msg]);
       setMessage('');
     });
     return () => socket?.off('recived-message');
-  },[setSubmitMessage, socket, submitMessage]);
+  },[setConversation, socket, conversation]);
 
   useEffect(()=>{
     socket?.on('typing', (value)=> {
-      setIsTyping(value);
+      console.log(value, userDetails?.id);
+      if (value !== userDetails?.id)
+        setIsTyping(value);
     });
     return () => socket?.off('typing');
   },[setIsTyping, isTyping, socket]);
@@ -31,20 +31,26 @@ const Conversation = ({contact, socket}) => {
     setMessage(
       [e.target.name]= e.target.value,
     );
-    socket?.emit('typing');
+    socket?.emit('typing', userDetails?.id);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    socket?.emit('send-message', message);
+    socket?.emit('send-message', {message, sender: userDetails?.id});
   }
+
+  const checkIdWithCurrentUser = (id) => id === userDetails?.id;
 
   return (
     <div className='conversation'>
       <div className='header'>{contact?.username} {isTyping && 'typing'}</div>
       <div className='messages'>
-        {submitMessage?.map((it, index) => (
-          <Message message={it} key={`${index}`}/>
+        {conversation?.map((it, index) => (
+          <Message
+            background={checkIdWithCurrentUser(it?.sender) ? `var(--sender-message)`: `var(--reciver-message)`} 
+            justifySelf={checkIdWithCurrentUser(it?.sender) ? 'end': 'start'} 
+            message={it?.message} 
+            key={`${index}`}/>
         ))}
       </div>
       <form onSubmit={handleSubmit}>

@@ -9,6 +9,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authMiddleware from './middleware/auth.js';
 import userRoutes from './routes/user.js';
+import chatRoutes from './routes/chat.js';
+import ChatModel from './models/chat.js';
+import UserModel from './models/user.js';
 dotenv.config()
 
 const app = express();
@@ -55,21 +58,27 @@ const exceptPaths = (pathArr, middleware) => {
 const excludedArr =['/api/user/token','/api/user/create'];
 app.use(exceptPaths(excludedArr,authMiddleware));
 app.use('/api/user', userRoutes);
+app.use('/api/chat', chatRoutes);
 
 socketIO.on('connection', (socket)=> {
   console.log('socket connetced');
-  socket.on('chat-message', (msg)=> {
-    socketIO.emit('chat-message', msg);
-  });
+  socket.on('create-room', (id)=> {
+    console.log(id);
+    socket.join(id);
+    socket.on('typing', (userId) => {
+      socketIO.to(id).emit('typing', userId);
+    });
   
-  socket.on('typing', () => {
-    socketIO.emit('typing', true);
-  });
+    socket.on('send-message', async ({message, sender})=> {
+      socketIO.to(id).emit('typing', null)
+      const messageAdded = await UserModel.findByIdAndUpdate(id, {$push: {
+        chat: {message, sender}
+      }});
+      console.log({id, messageAdded, message, sender});
+        socketIO.emit('recived-message', {message, sender});
+    });
 
-  socket.on('send-message', (message)=> {
-    socketIO.emit('typing', false);
-    socketIO.emit('recived-message', message);
-  });
+  })
 
 });
 
