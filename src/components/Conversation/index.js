@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { v4 as uuid } from 'uuid'
 import Button from "../Button";
 import Input from "../Input";
 import Message from "../Message";
@@ -42,7 +43,7 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
     const newMessage = {
       message,
       sender: userDetails?.id,
-      pendingId: 1,
+      pendingId: uuid(),
     };
     setPendingMessages([...pendingMessages, newMessage])
     socket?.emit('send-message', newMessage);
