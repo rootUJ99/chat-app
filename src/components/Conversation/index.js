@@ -43,6 +43,9 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
 
   return (
     <div className='conversation'>
+      {
+        contact ?
+       <>
       <div className='header'>{contact?.username} {isTyping && 'typing'}</div>
       <div className='messages'>
         {conversation?.map((it, index) => (
@@ -61,9 +64,15 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
             value={message}
             onChange={handleChange}
           />
-          <Button type='submit'>Send</Button>
+          <Button type='submit' style={{background: '#58735E'}}>Send</Button>
         </div>
       </form>
+      </> : 
+      <div className="preview-screen">
+        <img src="/chat.svg" className="chat-preview-image"/>
+        <p>Select contact and start the conversation</p>
+      </div>
+      }
     </div>
   );
 };

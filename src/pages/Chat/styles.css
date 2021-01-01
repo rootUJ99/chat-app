@@ -3,3 +3,13 @@
   grid-template-columns: 30% 70%;
   align-content: center;
 }
+
+.contact-list {
+  text-align: center;
+  /* background-color: var(--header); */
+}
+
+.list-title {
+  padding: 1rem;
+  color: #D2F4D9;
+}

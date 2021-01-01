@@ -55,11 +55,14 @@ const Chat = ({socket}) => {
 
   return (
     <div className="chat">
-      <List 
-        list={userList?.users} 
-        propToShow="username" 
-        onItemClick={handleItemClick}
-      />
+      <div className="contact-list">
+        <h3 className="list-title"> Available Contacts </h3>
+        <List 
+          list={userList?.users} 
+          propToShow="username" 
+          onItemClick={handleItemClick}
+        />
+      </div>
       <Conversation 
         contact={contact} 
         userDetails={userDetails}
