@@ -8,15 +8,17 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
   
   const [message, setMessage] = useState('');
   const [isTyping, setIsTyping] = useState(null);
+  const [pendingMessages, setPendingMessages] = useState([]);
 
   useEffect(()=> {
-    socket?.on('recived-message', (msg)=>{
-      console.log(msg);
-      setConversation([...conversation, msg]);
+    socket?.on('recived-message', (messageObject)=>{
+      const filterdPendingMessages = pendingMessages?.filter(it=>it.pendingId !== messageObject?.pendingId);
+      setPendingMessages(filterdPendingMessages);
+      setConversation([...conversation, messageObject]);
       setMessage('');
     });
     return () => socket?.off('recived-message');
-  },[setConversation, socket, conversation]);
+  },[setConversation, socket, conversation, setPendingMessages, pendingMessages]);
 
   useEffect(()=>{
     socket?.on('typing', (value)=> {
@@ -31,12 +33,19 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
     setMessage(
       [e.target.name]= e.target.value,
     );
-    socket?.emit('typing', userDetails?.id);
+    if (e.target.value)
+      socket?.emit('typing', userDetails?.id);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    socket?.emit('send-message', {message, sender: userDetails?.id});
+    const newMessage = {
+      message,
+      sender: userDetails?.id,
+      pendingId: 1,
+    };
+    setPendingMessages([...pendingMessages, newMessage])
+    socket?.emit('send-message', newMessage);
   }
 
   const checkIdWithCurrentUser = (id) => id === userDetails?.id;
@@ -50,8 +59,15 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
       <div className='messages'>
         {conversation?.map((it, index) => (
           <Message
-            background={checkIdWithCurrentUser(it?.sender) ? `var(--sender-message)`: `var(--reciver-message)`} 
-            alignSelf={checkIdWithCurrentUser(it?.sender) ? 'flex-end': 'flex-start'} 
+            isSentByUser={checkIdWithCurrentUser(it?.sender)} 
+            recived
+            message={it?.message} 
+            key={`${index}`}/>
+        ))}
+        {pendingMessages?.map((it, index) => (
+          <Message
+            isSentByUser={checkIdWithCurrentUser(it?.sender)} 
+            recived={false}
             message={it?.message} 
             key={`${index}`}/>
         ))}

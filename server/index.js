@@ -67,15 +67,14 @@ socketIO.on('connection', (socket)=> {
       socketIO.to(id).emit('typing', userId);
     });
   
-    socket.on('send-message', async ({message, sender})=> {
+    socket.on('send-message', async ({message, sender, pendingId})=> {
       try {
         socketIO.to(id).emit('typing', null);
-        const findifexost = await ChatModel.findById(id);
         const messageAdded = await ChatModel.findByIdAndUpdate(id, {$push: {
           chat: { message, sender}
         }});
         console.log({id, messageAdded});
-        socketIO.emit('recived-message', {message, sender});
+        socketIO.emit('recived-message', {message, sender, pendingId});
       } catch(err) {
         console.log(err);
       }
