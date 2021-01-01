@@ -21,7 +21,7 @@ const App = () => {
    }
 }, [setSocket])
   return (
-    <div>
+    <div className="app">
       {userData?.token ? <Chat socket={socket}/> : <Auth/>}
     </div>
   )

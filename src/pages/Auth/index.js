@@ -57,15 +57,17 @@ const Login = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="auth-form">
-      <Input name="username" placeholder="username" value={authForm.username} onChange={handleChange}/>
-      <Input type="password" name="password" placeholder="password" value={authForm.password} onChange={handleChange}/>
-      <Button type="submit">{mode}</Button><br/>
-      <div className="or-divider">--or--</div>
-      <Button type="button" onClick={()=> setMode(switchMode())}>{switchMode()}</Button>
-      </div>
-    </form>
+    <div className="auth-container">
+      <form onSubmit={handleSubmit}>
+        <div className="auth-form">
+        <Input name="username" placeholder="username" value={authForm.username} onChange={handleChange}/>
+        <Input type="password" name="password" placeholder="password" value={authForm.password} onChange={handleChange}/>
+        <Button type="submit">{mode}</Button><br/>
+        <div className="or-divider">--or--</div>
+        <Button type="button" onClick={()=> setMode(switchMode())}>{switchMode()}</Button>
+        </div>
+      </form>
+    </div>
   );
 }
 

@@ -7,3 +7,9 @@
   .or-divider {
     justify-self: center;
   }
+
+  .auth-container {
+    height: 100%;
+    place-items: center;
+    display: grid;
+  }
