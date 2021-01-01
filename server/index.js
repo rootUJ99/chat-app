@@ -63,7 +63,6 @@ app.use('/api/chat', chatRoutes);
 socketIO.on('connection', (socket)=> {
   console.log('socket connetced');
   socket.on('create-room', (id)=> {
-    console.log(id);
     socket.join(id);
     socket.on('typing', (userId) => {
       socketIO.to(id).emit('typing', userId);
@@ -71,10 +70,11 @@ socketIO.on('connection', (socket)=> {
   
     socket.on('send-message', async ({message, sender})=> {
       socketIO.to(id).emit('typing', null)
+      const findifexost = await UserModel.findById(id);
       const messageAdded = await UserModel.findByIdAndUpdate(id, {$push: {
         chat: {message, sender}
       }});
-      console.log({id, messageAdded, message, sender});
+      console.log({id,findifexost, messageAdded, message, sender});
         socketIO.emit('recived-message', {message, sender});
     });
 
