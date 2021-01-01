@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
 const chatSchema = new Schema({
-  members: Array,
+  members: {type:Array, unique:true},
   chat: [{
     sender: String,
-    messaage: String,
+    message: String,
     time: {type: Date, default: Date.now}
   }],
 });

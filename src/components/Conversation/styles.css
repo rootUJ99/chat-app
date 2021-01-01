@@ -4,6 +4,7 @@
   height: 100%;
   border-radius: 0.5rem;
   background: var(--primary);
+  overflow-y:
 }
 
 .header {
@@ -13,18 +14,18 @@
 }
 
 .messages {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
   overflow-y: scroll;
-  height: 90vh;
-  /* position: absolute; */
+  height: 85vh;
   bottom: 3rem;
 }
 
 .message-form {
-  position: absolute;
-  bottom: 1rem;
+  position: sticky;
+  /* bottom: 1rem; */
   display: grid;
   width: 100%;
   grid-template-columns: 85% 10%;

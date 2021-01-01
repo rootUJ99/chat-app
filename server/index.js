@@ -11,7 +11,6 @@ import authMiddleware from './middleware/auth.js';
 import userRoutes from './routes/user.js';
 import chatRoutes from './routes/chat.js';
 import ChatModel from './models/chat.js';
-import UserModel from './models/user.js';
 dotenv.config()
 
 const app = express();
@@ -69,13 +68,17 @@ socketIO.on('connection', (socket)=> {
     });
   
     socket.on('send-message', async ({message, sender})=> {
-      socketIO.to(id).emit('typing', null)
-      const findifexost = await UserModel.findById(id);
-      const messageAdded = await UserModel.findByIdAndUpdate(id, {$push: {
-        chat: {message, sender}
-      }});
-      console.log({id,findifexost, messageAdded, message, sender});
+      try {
+        socketIO.to(id).emit('typing', null);
+        const findifexost = await ChatModel.findById(id);
+        const messageAdded = await ChatModel.findByIdAndUpdate(id, {$push: {
+          chat: { message, sender}
+        }});
+        console.log({id, messageAdded});
         socketIO.emit('recived-message', {message, sender});
+      } catch(err) {
+        console.log(err);
+      }
     });
 
   })

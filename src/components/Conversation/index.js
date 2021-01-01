@@ -51,7 +51,7 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
         {conversation?.map((it, index) => (
           <Message
             background={checkIdWithCurrentUser(it?.sender) ? `var(--sender-message)`: `var(--reciver-message)`} 
-            justifySelf={checkIdWithCurrentUser(it?.sender) ? 'end': 'start'} 
+            alignSelf={checkIdWithCurrentUser(it?.sender) ? 'flex-end': 'flex-start'} 
             message={it?.message} 
             key={`${index}`}/>
         ))}
