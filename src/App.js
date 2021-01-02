@@ -19,7 +19,8 @@ const App = () => {
     console.log('closing socket connection');
     socket?.close();
    }
-}, [setSocket])
+}, [setSocket]);
+
   return (
     <div className="app">
       {userData?.token ? <Chat socket={socket}/> : <Auth/>}

@@ -21,6 +21,11 @@ router.post('/create', async (req, res)=> {
       message: 'Account created successfully please login',
     });
   } catch(error) {
+    if (error && error.code === 11000) {
+      return res.status(400).send({
+        error: 'User already exists'
+      });
+    }
     res.status(400).send({
       error
     })

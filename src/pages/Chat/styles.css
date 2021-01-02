@@ -13,3 +13,13 @@
   padding: 1rem;
   color: #D2F4D9;
 }
+
+.logout-section {
+  background: var(--primary);
+  position: fixed;
+  bottom: 0.5rem;
+  color: var(--success-color);
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0 0.8rem 0.8rem 0;
+}

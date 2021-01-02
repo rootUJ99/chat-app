@@ -6,7 +6,7 @@ import Conversation from '../../components/Conversation';
 import './styles.css';
 const Chat = ({socket}) => {
   const [userList, setUserList] = useState([]);
-  const [userData] = useLocalStorage('token');
+  const [userData, setUserData] = useLocalStorage('token');
   const [contact, setContact] = useState('');
   const [conversation, setConversation] = useState([]);
   const userDetails = convertToken(userData?.token);
@@ -50,7 +50,11 @@ const Chat = ({socket}) => {
     } catch(error) {
       console.log(error);
     }
+  }
 
+  const Logout = () => {
+    setUserData('');
+    window.location.reload();
   }
 
   return (
@@ -62,6 +66,9 @@ const Chat = ({socket}) => {
           propToShow="username" 
           onItemClick={handleItemClick}
         />
+        <div className="logout-section">
+          <p onClick={Logout}>logout</p>
+        </div>
       </div>
       <Conversation 
         contact={contact} 

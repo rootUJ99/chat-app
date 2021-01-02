@@ -4,10 +4,11 @@
   --header: #525c67;
   --accent: #6879A3;
   --primary: #363C43;
-  --secondry: #847BA9;
   --field: #E5E5E5;
   --sender-message: #91AFAF;
   --reciver-message: #D2D9F4;
+  --success-color: green;
+  --error-color: rosybrown;
 }
 
 html {
