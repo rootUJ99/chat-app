@@ -15,4 +15,3 @@ npm run start;
 
 and visit **[http://localhost:3000](http://localhost:3000)**
 
-example APIs
