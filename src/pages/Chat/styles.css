@@ -18,7 +18,7 @@
   background: var(--primary);
   position: fixed;
   bottom: 0.5rem;
-  color: var(--success-color);
+  color: var(--error-color);
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 0 0.8rem 0.8rem 0;
