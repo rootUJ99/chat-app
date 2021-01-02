@@ -17,11 +17,17 @@
 }
 
 .logout-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   background: var(--primary);
   position: fixed;
   bottom: 0.5rem;
-  color: var(--error-color);
   padding: 0.5rem;
-  cursor: pointer;
   border-radius: 0 0.8rem 0.8rem 0;
+}
+
+.logout-text{
+  cursor: pointer;
+  color: var(--error-color);
 }

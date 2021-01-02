@@ -67,7 +67,7 @@ const Chat = ({socket}) => {
           onItemClick={handleItemClick}
         />
         <div className="logout-section">
-          <p onClick={Logout}>logout</p>
+          <span>{userDetails?.username}</span> <span className="logout-text" onClick={Logout}>logout</span>
         </div>
       </div>
       <Conversation 
