@@ -5,7 +5,7 @@ const router = express.Router();
 router.post("/load", async (req, res) => {
   try {
     const {members} = req.body;
-    const chat  = await ChatModel.findOne({members : { $in :[...members]}});
+    const chat  = await ChatModel.findOne({members : { $all :[...members]}});
     console.log(members, chat);
     if (chat) return res.send({chat});
     const newChat = new ChatModel({members});
