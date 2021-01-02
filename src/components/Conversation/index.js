@@ -34,8 +34,12 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
     setMessage(
       [e.target.name]= e.target.value,
     );
-    if (e.target.value)
+    if (e.target.value) {
       socket?.emit('typing', userDetails?.id);
+    }
+    else {
+      socket?.emit('typing');
+    }
   }
 
   const handleSubmit = (e) => {
@@ -45,8 +49,10 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
       sender: userDetails?.id,
       pendingId: uuid(),
     };
-    setPendingMessages([...pendingMessages, newMessage])
-    socket?.emit('send-message', newMessage);
+    if (message) {
+      setPendingMessages([...pendingMessages, newMessage])
+      socket?.emit('send-message', newMessage);
+    }
   }
 
   const checkIdWithCurrentUser = (id) => id === userDetails?.id;
