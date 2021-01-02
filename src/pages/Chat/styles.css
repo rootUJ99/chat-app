@@ -2,11 +2,13 @@
   display: grid;
   grid-template-columns: 30% 70%;
   align-content: center;
+  overflow-y: hidden;
+  height: 100%;;
 }
 
 .contact-list {
   text-align: center;
-  /* background-color: var(--header); */
+  overflow-y: scroll;
 }
 
 .list-title {
