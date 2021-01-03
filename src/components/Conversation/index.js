@@ -50,6 +50,7 @@ const Conversation = ({contact, socket,conversation, setConversation, userDetail
       pendingId: uuid(),
     };
     if (message) {
+      setMessage('');
       setPendingMessages([...pendingMessages, newMessage])
       socket?.emit('send-message', newMessage);
     }
